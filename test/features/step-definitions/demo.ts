@@ -201,13 +201,25 @@ When(/^Perform web Interactions$/, async function(){
          * 2. switchToParentFrame
          */
 
-        await $(`=iFrame`).click()
-        let ele = await $(`#mce_0_ifr`)
-        await browser.switchToFrame(ele)
+        // await $(`=iFrame`).click()       
+        // let ele = await $(`#mce_0_ifr`)
+        // await browser.switchToFrame(ele)
         
-        // Interact with frames...
-        await $(`#tinymce`).setValue(`Typing into a frame...`)
-        await browser.switchToParentFrame()
+        // // Interact with frames...
+        // await $(`#tinymce`).click()
+        // await browser.keys(["Meta", "A"])
+        // await browser.pause(1000)
+        // await browser.keys("Delete")
+        // await $(`#tinymce`).addValue(`Typing into a frame...`)
+        // await browser.switchToParentFrame()
 
+        /**
+         * 7. Basic Scrolling
+         * Methods: (Element Methods)
+         * 1. scrollIntoView
+         */
+
+        // await $('span=Best Sellers in Books').scrollIntoView()
+        
          await browser.debug()
  })
