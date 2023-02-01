@@ -31,7 +31,7 @@ Then(/^URL should match (.*)$/, async function(expectedURL){
  * Web Interactions
  */
 Given(/^A web page is opened$/, async function(){
-    await browser.url("/inputs")
+    await browser.url("/iframe")
     await browser.setTimeout({implicit: 15000, pageLoad: 10000})
     // await browser.maximizeWindow()
 })
@@ -45,17 +45,169 @@ When(/^Perform web Interactions$/, async function(){
      * 3. Click and type
      * 4. Slow typing
      */
-    let num = 12345
-    let strNum = num.toString()
-    let ele = await $(`[type=number]`)
-    await ele.click()
-    //await ele.setValue(strNum)
+//     let num = 12345
+//     let strNum = num.toString()
+//     let ele = await $(`[type=number]`)
+//     // await ele.scrollIntoView()
+//     await ele.click()
+//     //await ele.setValue(strNum)
 
-    for(let i = 0; i< strNum.length; i++) {
-        let charStr = strNum.charAt(i)
-        await browser.pause(1000)
-        await browser.keys(charStr)
-    }
+//     for(let i = 0; i< strNum.length; i++) {
+//         let charStr = strNum.charAt(i)
+//         await browser.pause(1000)
+//         await browser.keys(charStr)
+//     }
 
-    await browser.debug()
-})
+
+        /**
+         * 2. Dropdown
+         * Actions:
+         * 1. Assert default option is selected
+         * 2. Select by attribute, text, index
+         * 3. Get a list of options
+         */
+
+        /** 1. Assert default option is selected */
+
+        // let ele = await $('//select/option[@selected="selected"]')
+        // let val = await ele.getText()
+        // chai.expect(val).to.equal("Please select an option")
+
+        /**
+         * 2. Select by attribute, text, index
+         */
+        // let ddEle = await $('#dropdown')
+        // await ddEle.selectByVisibleText("Option 2")
+        // await ddEle.selectByAttribute("value","1")
+        // await ddEle.selectByIndex(2)
+        
+        /** 3. Get a list of options */
+        // let eleArr = await $$('select > option')
+        // let arr = []
+        // for (let i = 0; i < eleArr.length; i++){
+        //     let ele = eleArr[i]
+        //     let val = await ele.getText()
+        //     arr.push(val)
+        //     console.log(val);
+        // }
+        // console.log(`>> Options Array: ${arr}`);
+
+        /**
+         * 3. Checkbox
+         * Actions:
+         * 1. Select an option
+         * 2. Unselect an option (if selected)
+         * 3. Assert if option is selected
+         * 4. Select all options
+         */
+
+        /*let eleArr = await $$(`//form[@id="checkboxes"]/input`)
+        for(let i = 0; i < eleArr.length; i++) {
+            let ele = eleArr[i]
+            if(!await ele.isSelected()) {
+                ele.click()
+            }
+        }*/
+
+        // let ele = await $(`//form[@id="checkboxes"]/input[2]`)
+        // let isChecked =  await ele.isSelected()
+        // chai.expect(isChecked).to.be.true
+
+        // if(!await ele.isSelected()){
+        //     await ele.click()
+        // }
+        // await ele.click()
+
+        /**
+         * 4. Windows Handling
+         * Steps:
+         * 1. Launch the browser
+         * 2. Open another window
+         * 3. Switch to the window based on title
+         * 4. Switch back to the main window
+         * 
+         * Methods Used:
+         * 1. getTitle()
+         * 2. getWindowHandle()
+         * 3. getWindowHandles()
+         * 4. switchToWindow()
+         */
+
+        // await $(`=Click Here`).click()
+        // await $(`=Elemental Selenium`).click()
+        // let currentWinTitle = await browser.getTitle()
+        // let parentWinHandle = await browser.getWindowHandle()
+        // console.log(`>> currentWinTitle: ${currentWinTitle}`);
+
+
+        // // Switch to specific window
+        // let winHandles = await browser.getWindowHandles()
+        // for (let i = 0; i < winHandles.length; i++) {
+        //     console.log(`>> Win handle: ${winHandles[i]}`);
+        //     await browser.switchToWindow(winHandles[i])
+        //     currentWinTitle = await browser.getTitle()
+        //     if (currentWinTitle === "Elemental Selenium: Receive a Free, Weekly Tip on Using Selenium like a Pro"){
+        //         await browser.switchToWindow(winHandles[i])
+        //         let headerTxtEleSel = await $(`<h1>`).getText()
+        //         console.log(`>> headerTxtEleSel: ${headerTxtEleSel}`);
+        //         // Rest of the actions go here...
+        //         break
+        //     }
+        // }
+
+        // // browser.switchWindow() // alternative for switchToWindow
+
+        // // Switch back to parent window
+        // await browser.switchToWindow(parentWinHandle)
+        // let parentWinHeaderTxt = await $(`<h3>`).getText()
+        // console.log(`>> parentWinHeaderTxt: ${parentWinHeaderTxt}`);
+        // // Continue with rest of the execution..
+
+
+        /**
+         * 4. Handling alerts
+         * 
+         * Methods Used:
+         * 1. isAlertOpen()
+         * 2. acceptAlert()
+         * 3. dismissAlert()
+         * 4. getAlertText()
+         * 5. sendAlertText()
+         */
+        // await $(`button=Click for JS Alert`).click()
+        // await $(`button=Click for JS Confirm`).click()
+        // await $(`button=Click for JS Prompt`).click()
+        // if (await browser.isAlertOpen()) {
+        //     // await browser.acceptAlert()
+        //     let alertText = await browser.getAlertText()
+        //     console.log(`>> alertText: ${alertText}`);
+        //     await browser.sendAlertText(`Hello JS Prompt...`)
+        //     await browser.acceptAlert()
+        //     // await browser.dismissAlert()
+        //     await browser.pause(2000)
+        // }
+
+        /**
+         * 5. File Upload
+         */
+        // console.log(process.cwd());
+        // await $(`#file-upload`).addValue(`${process.cwd()}/data/fileupload/dummy.txt`)
+        // await $(`#file-submit`).click()
+
+        /**
+         * 6. Frames
+         * Methods used:
+         * 1. switchToFrame
+         * 2. switchToParentFrame
+         */
+
+        await $(`=iFrame`).click()
+        let ele = await $(`#mce_0_ifr`)
+        await browser.switchToFrame(ele)
+        
+        // Interact with frames...
+        await $(`#tinymce`).setValue(`Typing into a frame...`)
+        await browser.switchToParentFrame()
+
+         await browser.debug()
+ })
