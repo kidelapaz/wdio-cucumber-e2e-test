@@ -27,6 +27,10 @@ Then(/^Validate all products have valid price$/, async function(){
     console.log(`>> Price with $: ${priceStrArr}`);
 
     /** 2. Convert string to number  */
-    let priceNumArr = priceStrArr.map(ele => parseInt(ele.replace("$", "")))
+    let priceNumArr = priceStrArr.map(ele => +(ele.replace("$", "")))
     console.log(`>> Price in numbers: ${priceNumArr}`);
+
+    /** 3. Assert if any value is <=0 */
+    let invalidPriceArr = priceNumArr.filter(ele => ele <= 0)
+    chai.expect(invalidPriceArr.length).to.equal(0)
 })
