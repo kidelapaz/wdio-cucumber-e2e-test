@@ -22,6 +22,10 @@ Then(/^Click on first search result$/, async function () {
 
 Then(/^URL should match (.*)$/, async function (expectedURL) {
   console.log(`>> expectedURL: ${expectedURL}`);
+  await browser.waitUntil(async function(){
+     return await browser.getTitle() === "WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO"
+  }, {timeout: 20000, interval: 500, timeoutMsg: `Failed loading WDIO web page: ${await browser.getTitle()}`})
+  
   let url = await browser.getUrl();
   chai.expect(url).to.equal(expectedURL);
 });
@@ -321,12 +325,32 @@ When(/^Perform web Interactions$/, async function () {
  * Y --> [-]window.innerheight
  */
 
+// Scroll down
+await browser.execute(() => {
+  window.scrollBy(0, window.innerHeight)
+})
+
+await browser.pause(2000)
+
+// Scroll top
+await browser.execute(() => {
+  window.scrollBy(0, -window.innerHeight)
+})
 /**
  * INVISIBLE PORTION
  * windows object:
  * 1. scrollTo
  * Y --> document.body.scrollTop[scrollHeight]
  */
+// await browser.pause(2000)
+// await browser.execute(() => {
+//   window.scrollTo(0, document.body.scrollHeight)
+// })
+
+// await browser.pause(2000)
+// await browser.execute(() => {
+//   window.scrollTo(0, document.body.scrollTop)
+// })
 
 
 
