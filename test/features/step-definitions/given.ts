@@ -2,14 +2,17 @@ import { Given } from "@wdio/cucumber-framework";
 import chai from "chai";
 
 Given(/^Login to inventory web app$/, async function() {
+    console.log(`Test username: ${process.env.TEST_USERNAME}`);
     /** 1. Launch browser */
-    await browser.url("https://www.saucedemo.com")
+    // @ts-ignore
+    await browser.url(browser.options.sauceDemoURL)
+    console.log(`>> Test config values: ${JSON.stringify(browser.options)}`);
     // await browser.maximizeWindow()
     
     /** 2. Login to inventory */
     try {
-        await  $(`#user-name`).setValue("standard_user")
-        await  $(`#password`).setValue("secret_sauce")
+        await  $(`#user-name`).setValue(process.env.TEST_STD_USERNAME)
+        await  $(`#password`).setValue(process.env.TEST_STD_PASSWORD)
         await  $(`#login-button`).click()
     } catch (err) {
         console.log(`Error in first login. Retrying..`);
